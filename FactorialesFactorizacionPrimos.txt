@@ -1,0 +1,431 @@
+
+Option Explicit
+
+Private Sub cmdGrafica_Click()
+  ' Borra Pantalla
+  Cls
+  
+' Declaracion de variables
+  Dim X As Long
+  Dim I As Long
+  Dim LimIndice As Long
+  Dim FilaAnterior As Long
+  Dim FilaActual As Long
+  Dim Compara As Boolean
+
+  ' Inicializacion de variables
+  LimIndice = 2
+
+  ' Declaracion de vectores
+  Dim a() As Long  ' almacena al numero primo
+  Dim b() As Long  ' almacena el digito a usar entre 1 y 0
+  Dim c() As Long  ' almacena la fila anterior
+  Dim m() As Long  ' almacena contador del bucle
+
+  ' Redimensiona los vectores
+  ReDim a(2)
+  ReDim b(2)
+  ReDim c(2)
+  ReDim m(2)
+
+  ' Inicializa los primeros numeros primos
+  a(1) = 2
+  a(2) = 3
+  
+  m(1) = 0
+  m(2) = 0
+  
+  ' Inicializa los Indices
+  For I = 1 To LimIndice
+    b(I) = 0
+  Next I
+
+  ' Inicializa los contadores
+  For I = 1 To LimIndice
+    c(I) = 0
+  Next I
+
+  ' Desplazamiento por las filas a cargo de X
+  For X = 0 To 2000
+    If X = 0 Then
+      FilaActual = 0
+    Else
+      FilaAnterior = X - 1
+      FilaActual = X
+    End If
+    
+    Compara = True
+    
+    ' Desplazamiento por las columnas a cargo de I
+    For I = 1 To LimIndice
+      If m(I) = a(I) Then
+        ' Determina si cambia el exponente o permanece igual
+        If b(I) = 0 Then
+          b(I) = 1
+        Else
+          b(I) = 0
+        End If
+        m(I) = 1
+      Else
+        m(I) = m(I) + 1
+      End If
+      
+      ' Imprime el digito
+'''      Print b(I); "  ";
+
+
+      ' Imprime puntos del grafico
+      If (X <> 0) And (b(I) <> 1) Then
+        'PSet (I * 45, X * 5), QBColor(15)
+        'PSet (X * 5, I * 45), QBColor(15)
+        Circle (I * 45, X * 5), 25, QBColor(15)
+
+      End If
+      If (X <> 0) And (b(I) <> 0) Then
+        'PSet (I * 45, X * 5), QBColor(0)
+        'PSet (X * 5, I * 45), QBColor(0)
+        Circle (I * 45, X * 5), 25, QBColor(0)
+      End If
+
+      ' Compara para ver si son iguales al final
+      If X > 2 Then
+        If c(I) <> b(I) Then
+          Compara = False
+        End If
+      End If
+      
+      ' Almacena el dato
+      c(I) = b(I)
+    Next I
+    
+    ' Termino de procesar la fila
+    If X > 2 Then
+      If Compara = True Then
+        ' Agrega columna porque encontro un nuevo primo
+        LimIndice = LimIndice + 1
+        
+        ' Redimensiona los vectores
+        ReDim Preserve a(LimIndice)
+        ReDim Preserve b(LimIndice)
+        ReDim Preserve c(LimIndice)
+        ReDim Preserve m(LimIndice)
+        
+        ' Agrega el numero primo e inicializa sus datos
+        a(LimIndice) = X
+        b(LimIndice) = 1
+        c(LimIndice) = 0
+        m(LimIndice) = 1
+        
+        ' Imprime el que acaba de encontrar
+'''        Print b(I); "  ";
+      End If
+    End If
+    
+'''    Print
+  Next X
+  
+  ' IMPRESIÓN DE LOS RESULTADOS
+  Print
+  For I = 0 To LimIndice
+    If (I Mod 13) = 0 And (I <> 0) Then
+      Print
+    End If
+    ' Imprime los primos
+    Print a(I); Tab;
+  Next I
+  
+  ' Imprime solo el resultado final
+  Print: Print
+  Print a(LimIndice);
+
+End Sub
+
+Private Sub cmdMehorado_Click()
+  ' Borra Pantalla
+  Cls
+  
+' Declaracion de variables
+  Dim X As Long
+  Dim I As Long
+  Dim LimIndice As Long
+  Dim FilaAnterior As Long
+  Dim FilaActual As Long
+  Dim Compara As Boolean
+
+  ' Inicializacion de variables
+  LimIndice = 2
+
+  ' Declaracion de vectores
+  Dim a() As Long  ' almacena al numero primo
+  Dim b() As Long  ' almacena el digito a usar entre 1 y 0
+  Dim c() As Long  ' almacena la fila anterior
+  Dim m() As Long  ' almacena contador del bucle
+
+  ' Redimensiona los vectores
+  ReDim a(2)
+  ReDim b(2)
+  ReDim c(2)
+  ReDim m(2)
+
+  ' Inicializa los primeros numeros primos
+  a(1) = 2
+  a(2) = 3
+  
+  m(1) = 0
+  m(2) = 0
+  
+  ' Inicializa los Indices
+  For I = 1 To LimIndice
+    b(I) = 0
+  Next I
+
+  ' Inicializa los contadores
+  For I = 1 To LimIndice
+    c(I) = 0
+  Next I
+
+  Print
+  
+  ' Desplazamiento por las filas a cargo de X
+  For X = 0 To 48
+    If X = 0 Then
+      FilaActual = 0
+    Else
+      FilaAnterior = X - 1
+      FilaActual = X
+    End If
+    
+    Compara = True
+    
+    ' Desplazamiento por las columnas a cargo de I
+    For I = 1 To LimIndice
+      If m(I) = a(I) Then
+        ' Determina si cambia el exponente o permanece igual
+        If b(I) = 0 Then
+          b(I) = 1
+        Else
+          b(I) = 0
+        End If
+        m(I) = 1
+      Else
+        m(I) = m(I) + 1
+      End If
+      
+      ' Imprime el digito
+      Print b(I); "  ";
+
+      ' Compara para ver si son iguales al final
+      If X > 2 Then
+        If c(I) <> b(I) Then
+          Compara = False
+        End If
+      End If
+      
+      ' Almacena el dato
+      c(I) = b(I)
+    Next I
+    
+    ' Termino de procesar la fila
+    If X > 2 Then
+      If Compara = True Then
+        ' Agrega columna porque encontro un nuevo primo
+        LimIndice = LimIndice + 1
+        
+        ' Redimensiona los vectores
+        ReDim Preserve a(LimIndice)
+        ReDim Preserve b(LimIndice)
+        ReDim Preserve c(LimIndice)
+        ReDim Preserve m(LimIndice)
+        
+        ' Agrega el numero primo e inicializa sus datos
+        a(LimIndice) = X
+        b(LimIndice) = 1
+        c(LimIndice) = 0
+        m(LimIndice) = 1
+        
+        ' Imprime el que acaba de encontrar
+        Print b(I); "  ";
+      End If
+    End If
+    
+    Print
+  Next X
+  
+  ' IMPRESIÓN DE LOS RESULTADOS
+  Print
+  For I = 0 To LimIndice
+    If (I Mod 13) = 0 And (I <> 0) Then
+      Print
+    End If
+    ' Imprime los primos
+    Print a(I); Tab;
+  Next I
+  
+  ' Imprime solo el resultado final
+  Print: Print
+  Print a(LimIndice);
+End Sub
+
+
+Private Sub cmdCreafilas_Click()
+  ' Borra Pantalla
+  Cls
+  
+' Declaracion de variables
+  Dim X As Long
+  Dim I As Long
+  Dim LimIndice As Long
+  Dim FilaAnterior As Long
+  Dim FilaActual As Long
+  Dim Compara As Boolean
+
+  ' Inicializacion de variables
+  LimIndice = 2
+
+  ' Declaracion de vectores
+  Dim a() As Long  ' almacena al numero primo
+  Dim b() As Long  ' almacena el digito a usar entre 1 y 0
+  Dim c() As Long  ' almacena la fila
+  Dim m() As Long  ' almacena la fila
+
+  ' Redimensiona los vectores
+  ReDim a(2)
+  ReDim b(2)
+  ReDim c(2)
+  ReDim m(2)
+
+  ' Inicializa los primeros numeros primos
+  a(1) = 2
+  a(2) = 3
+  
+  m(1) = 1
+  m(2) = 1
+
+  ' Inicializa los Indices
+  For I = 1 To LimIndice
+    b(I) = 1
+  Next I
+
+  ' Inicializa los contadores
+  For I = 1 To LimIndice
+    c(I) = 0
+  Next I
+
+  ' Desplazamiento por las filas a cargo de X
+  For X = 0 To 5927
+    If X = 0 Then
+      FilaActual = 0
+    Else
+      FilaAnterior = X - 1
+      FilaActual = X
+    End If
+    Compara = True
+    ' Desplazamiento por las columnas a cargo de I
+    For I = 1 To LimIndice
+      If (X Mod a(I)) = 0 Then
+        ' Determina si cambia el exponente o permanece igual
+        If b(I) = 0 Then
+          b(I) = 1
+        Else
+          b(I) = 0
+        End If
+      End If
+      ' Imprime el digito
+      'Print b(I); "  ";
+
+      ' Compara para ver si son iguales al final
+      If X > 2 Then
+        If c(I) <> b(I) Then
+          Compara = False
+        End If
+      End If
+      ' Almacena el dato
+      c(I) = b(I)
+    Next I
+    ' Termino de procesar la fila
+    If X > 2 Then
+      If Compara = True Then
+        ' Agrega columna porque encontro un nuevo primo
+        LimIndice = LimIndice + 1
+        ' Redimensiona los vectores
+        ReDim Preserve a(LimIndice)
+        ReDim Preserve b(LimIndice)
+        ReDim Preserve c(LimIndice)
+        ' Agrega el numero primo e inicializa sus datos
+        a(LimIndice) = X
+        b(LimIndice) = 1
+        c(LimIndice) = 0
+      End If
+    End If
+    'Print
+  Next X
+  
+  ' IMPRESIÓN DE LOS RESULTADOS
+  Print
+  For I = 0 To LimIndice
+    If (I Mod 15) = 0 And (I <> 0) Then
+      Print
+    End If
+    ' Imprime los primos
+    Print a(I); Tab;
+  Next I
+  
+  Print a(LimIndice);
+  
+End Sub
+
+Private Sub Command_Click()
+  ' Borra Pantalla
+  Cls
+  
+  Dim a(16) As Long  ' almacena al numero primo
+  Dim b(16) As Long  ' almacena el digito a usar entre 1 y 0
+  Dim c(16) As Long  ' almacena el contador
+
+  Dim X As Long
+  Dim I As Long
+  
+  a(1) = 2
+  a(2) = 3
+  a(3) = 5
+  a(4) = 7
+  a(5) = 11
+  a(6) = 13
+  a(7) = 17
+  a(8) = 19
+  a(9) = 23
+  a(10) = 29
+  a(11) = 31
+  a(12) = 37
+  a(13) = 41
+  a(14) = 43
+  a(15) = 47
+  a(16) = 53
+
+  Print
+
+  For I = 1 To 16
+    b(I) = 1
+  Next I
+
+  For I = 1 To 16
+    c(I) = 0
+  Next I
+
+  For X = 0 To 50
+
+    For I = 1 To 16
+      If (X Mod a(I)) = 0 Then
+        If b(I) = 0 Then
+          b(I) = 1
+        Else
+          b(I) = 0
+        End If
+      End If
+      Print b(I); "  ";
+    Next I
+    Print " Fila: "; X
+  Next X
+
+End Sub
+
